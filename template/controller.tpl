@@ -1,7 +1,10 @@
 package api
 
 import(
-    {{.importStr}}
+    	"github.com/gin-gonic/gin"
+    	"net/http"
+    	"{{.ProjectName}}/model"
+    	"{{.ProjectName}}/utils/code"
 )
 type baseController struct {
 }

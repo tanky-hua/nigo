@@ -19,52 +19,53 @@ type Config struct {
 	data            interface{}
 }
 
-func GenProject(dir string) error {
-	err := genConfig(dir)
+func GenProject(dir string, projectName string) error {
+	dir = fmt.Sprintf("%s/%s", dir, projectName)
+	err := genConfig(dir, projectName)
 	if err != nil {
 		return err
 	}
 
-	err = genModel(dir)
+	err = genModel(dir, projectName)
 	if err != nil {
 		return err
 	}
 
-	err = genUtilCode(dir)
+	err = genUtilCode(dir, projectName)
 	if err != nil {
 		return err
 	}
-	err = genController(dir)
-	if err != nil {
-		return err
-	}
-
-	err = genCache(dir)
+	err = genController(dir, projectName)
 	if err != nil {
 		return err
 	}
 
-	err = genDB(dir)
+	err = genCache(dir, projectName)
 	if err != nil {
 		return err
 	}
 
-	err = genService(dir)
+	err = genDB(dir, projectName)
 	if err != nil {
 		return err
 	}
 
-	err = genMR(dir)
+	err = genService(dir, projectName)
 	if err != nil {
 		return err
 	}
 
-	err = genRouter(dir)
+	err = genMR(dir, projectName)
 	if err != nil {
 		return err
 	}
 
-	err = genMain(dir)
+	err = genRouter(dir, projectName)
+	if err != nil {
+		return err
+	}
+
+	err = genMain(dir, projectName)
 	if err != nil {
 		return err
 	}
@@ -74,13 +75,13 @@ func GenProject(dir string) error {
 
 func genFile(c *Config) error {
 
-	content, err := os.ReadFile("./template/" + c.templateFile)
-	if err != nil {
-		return err
-	}
+	//content, err := os.ReadFile("./template/" + c.templateFile)
+	//if err != nil {
+	//	return err
+	//}
 	fpath := path.Join(c.dir, c.tagetDir, c.fileName)
 	fmt.Println("path:", fpath)
-	_, err = os.Stat(fpath)
+	_, err := os.Stat(fpath)
 	if !os.IsNotExist(err) {
 		return fmt.Errorf("%s already exist", fpath)
 	}
@@ -93,7 +94,7 @@ func genFile(c *Config) error {
 	if err != nil {
 		return err
 	}
-	t := template.Must(template.New(c.templateName).Parse(string(content)))
+	t := template.Must(template.New(c.templateName).Parse(c.builtinTemplate))
 	buffer := new(bytes.Buffer)
 	err = t.Execute(buffer, c.data)
 	if err != nil {

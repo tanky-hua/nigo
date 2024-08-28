@@ -1,24 +1,23 @@
 package gen
 
+import "goctl/template"
+
 var (
-	configTemplate = ""
-	etcTemplate    = ""
+	configTemplate, _ = template.TemplateFs.ReadFile("config.tpl")
+	etcTemplate, _    = template.TemplateFs.ReadFile("etc.tpl")
 )
 
-func genConfig(dir string) error {
-	importStr := `
-	"github.com/fsnotify/fsnotify"
-	"github.com/spf13/viper"
-	"go.uber.org/zap"`
+func genConfig(dir string, projectName string) error {
+
 	err := genFile(&Config{
 		dir:             dir,
 		tagetDir:        "/config/",
 		fileName:        "config.yaml",
 		templateName:    "etcTemplate",
 		templateFile:    etcTemplateFile,
-		builtinTemplate: configTemplate,
+		builtinTemplate: string(etcTemplate),
 		data: map[string]string{
-			"name": "project",
+			"ProjectName": projectName,
 		},
 	})
 	if err != nil {
@@ -30,10 +29,8 @@ func genConfig(dir string) error {
 		fileName:        "config.go",
 		templateName:    "configTemplate",
 		templateFile:    configTemplateFile,
-		builtinTemplate: configTemplate,
-		data: map[string]string{
-			"importStr": importStr,
-		},
+		builtinTemplate: string(configTemplate),
+		data:            map[string]string{},
 	})
 
 }

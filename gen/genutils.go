@@ -1,16 +1,18 @@
 package gen
 
+import "goctl/template"
+
 var (
-	utilsCodeTemplate = ""
+	utilsCodeTemplate, _ = template.TemplateFs.ReadFile("utils-code.tpl")
 )
 
-func genUtilCode(dir string) error {
+func genUtilCode(dir, projectName string) error {
 	return genFile(&Config{
 		dir:             dir,
 		tagetDir:        "/utils/code/",
 		fileName:        "code.go",
 		templateName:    "utilsCodeTemplate",
 		templateFile:    utilsCodeTemplateFile,
-		builtinTemplate: utilsCodeTemplate,
+		builtinTemplate: string(utilsCodeTemplate),
 	})
 }

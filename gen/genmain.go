@@ -1,15 +1,21 @@
 package gen
 
-func genMain(dir string) error {
+import "goctl/template"
+
+var (
+	mainTemplate, _ = template.TemplateFs.ReadFile("main.tpl")
+)
+
+func genMain(dir, projectName string) error {
 	return genFile(&Config{
 		dir:             dir,
 		tagetDir:        "",
 		fileName:        "main.go",
 		templateName:    "mainTemplate",
 		templateFile:    "main.tpl",
-		builtinTemplate: "",
+		builtinTemplate: string(mainTemplate),
 		data: map[string]string{
-			"ProjectName": "goctl-project",
+			"ProjectName": projectName,
 		},
 	})
 }

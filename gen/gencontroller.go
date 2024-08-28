@@ -1,12 +1,15 @@
 package gen
 
-import "fmt"
-
-var (
-	controllerTemplate = ""
+import (
+	"goctl/template"
 )
 
-func genController(dir string) error {
+var (
+	controllerTemplate, _         = template.TemplateFs.ReadFile("controller.tpl")
+	controllerUserTestTemplate, _ = template.TemplateFs.ReadFile("controller-user-test.tpl")
+)
+
+func genController(dir, projectName string) error {
 
 	err := genFile(&Config{
 		dir:             dir,
@@ -14,21 +17,14 @@ func genController(dir string) error {
 		fileName:        "user.go",
 		templateName:    "controllerUserTemplate",
 		templateFile:    "controller-user-test.tpl",
-		builtinTemplate: "",
+		builtinTemplate: string(controllerUserTestTemplate),
 		data: map[string]string{
-			"ProjectName": "goctl-project",
+			"ProjectName": projectName,
 		},
 	})
 	if err != nil {
 		return err
 	}
-
-	importStr := `	
-	"github.com/gin-gonic/gin"
-	"net/http"
-	"%s/model"
-	"%s/utils/code"
-`
 
 	return genFile(&Config{
 		dir:             dir,
@@ -36,10 +32,9 @@ func genController(dir string) error {
 		fileName:        "base.go",
 		templateName:    "controllerTemplate",
 		templateFile:    controllerTemplateFile,
-		builtinTemplate: controllerTemplate,
+		builtinTemplate: string(controllerTemplate),
 		data: map[string]string{
-			"name":      "project",
-			"importStr": fmt.Sprintf(importStr, "goctl-project", "goctl-project"),
+			"ProjectName": projectName,
 		},
 	})
 }

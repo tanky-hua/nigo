@@ -1,7 +1,9 @@
 package config
 
 import (
-    {{.importStr}}
+	"github.com/fsnotify/fsnotify"
+	"github.com/spf13/viper"
+	"go.uber.org/zap"
 )
 
 var config = &Config{}

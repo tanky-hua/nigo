@@ -1,10 +1,9 @@
 package main
 
 import (
-	"fmt"
-	"goctl/gen"
+	"goctl/cmd"
 )
 
 func main() {
-	fmt.Println(gen.GenProject("../goctl-project"))
+	cmd.Execute()
 }

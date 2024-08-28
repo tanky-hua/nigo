@@ -7,11 +7,3 @@ const (
 	modelTemplateFile      = "model.tpl"
 	utilsCodeTemplateFile  = "utils-code.tpl"
 )
-
-var templates = map[string]string{
-	configTemplateFile:     configTemplate,
-	controllerTemplateFile: controllerTemplate,
-	modelTemplateFile:      modelTemplate,
-	utilsCodeTemplateFile:  utilsCodeTemplate,
-	etcTemplateFile:        etcTemplate,
-}

@@ -1,10 +1,13 @@
 package gen
 
+import "goctl/template"
+
 var (
-	modelTemplate = ""
+	modelTemplate, _         = template.TemplateFs.ReadFile("model.tpl")
+	modelUserTestTemplate, _ = template.TemplateFs.ReadFile("model-user-test.tpl")
 )
 
-func genModel(dir string) error {
+func genModel(dir, projectName string) error {
 
 	err := genFile(&Config{
 		dir:             dir,
@@ -12,9 +15,9 @@ func genModel(dir string) error {
 		fileName:        "user.go",
 		templateName:    "modelTestTemplate",
 		templateFile:    "model-user-test.tpl",
-		builtinTemplate: "",
+		builtinTemplate: string(modelUserTestTemplate),
 		data: map[string]interface{}{
-			"ProjectName": "goctl-project",
+			"ProjectName": projectName,
 		},
 	})
 	if err != nil {
@@ -27,6 +30,6 @@ func genModel(dir string) error {
 		fileName:        "response.go",
 		templateName:    "modelTemplate",
 		templateFile:    modelTemplateFile,
-		builtinTemplate: modelTemplate,
+		builtinTemplate: string(modelTemplate),
 	})
 }

@@ -1,15 +1,25 @@
 package gen
 
-import "fmt"
+import (
+	"goctl/template"
+)
 
-func genCache(dir string) error {
+var (
+	cacheTemplate, _        = template.TemplateFs.ReadFile("cache.tpl")
+	redisTemplate, _        = template.TemplateFs.ReadFile("redis.tpl")
+	singleFlightTemplate, _ = template.TemplateFs.ReadFile("singleflight.tpl")
+	cacheInitTemplate, _    = template.TemplateFs.ReadFile("cache-init.tpl")
+	userCacheTemplate, _    = template.TemplateFs.ReadFile("cache-user-test.tpl")
+)
+
+func genCache(dir string, projectName string) error {
 	err := genFile(&Config{
 		dir:             dir,
 		tagetDir:        "/repository/cache/",
 		fileName:        "cache.go",
 		templateName:    "cacheTemplate",
 		templateFile:    "cache.tpl",
-		builtinTemplate: "",
+		builtinTemplate: string(cacheTemplate),
 		data:            nil,
 	})
 	if err != nil {
@@ -21,7 +31,7 @@ func genCache(dir string) error {
 		fileName:        "redis.go",
 		templateName:    "redisTemplate",
 		templateFile:    "redis.tpl",
-		builtinTemplate: "",
+		builtinTemplate: string(redisTemplate),
 		data:            nil,
 	})
 	if err != nil {
@@ -34,7 +44,7 @@ func genCache(dir string) error {
 		fileName:        "singleflight.go",
 		templateName:    "singleFlightTemplate",
 		templateFile:    "singleflight.tpl",
-		builtinTemplate: "",
+		builtinTemplate: string(singleFlightTemplate),
 		data:            nil,
 	})
 	if err != nil {
@@ -47,29 +57,24 @@ func genCache(dir string) error {
 		fileName:        "user.go",
 		templateName:    "userCacheTemplate",
 		templateFile:    "cache-user-test.tpl",
-		builtinTemplate: "",
+		builtinTemplate: string(userCacheTemplate),
 		data: map[string]string{
-			"ProjectName": "goctl-project",
+			"ProjectName": projectName,
 		},
 	})
 	if err != nil {
 		return err
 	}
 
-	importStr := `	"context"
-	"fmt"
-	"github.com/redis/go-redis/v9"
-	"go.uber.org/zap"
-	"%s/config"`
 	err = genFile(&Config{
 		dir:             dir,
 		tagetDir:        "/repository/cache/",
 		fileName:        "init.go",
 		templateName:    "cacheInitTemplate",
 		templateFile:    "cache-init.tpl",
-		builtinTemplate: "",
+		builtinTemplate: string(cacheInitTemplate),
 		data: map[string]string{
-			"importStr": fmt.Sprintf(importStr, "goctl-project"),
+			"ProjectName": projectName,
 		},
 	})
 	if err != nil {

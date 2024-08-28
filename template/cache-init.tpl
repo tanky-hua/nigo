@@ -1,7 +1,11 @@
 package cache
 
 import (
-	{{.importStr}}
+		"context"
+    	"fmt"
+    	"github.com/redis/go-redis/v9"
+    	"go.uber.org/zap"
+    	"{{.ProjectName}}/config"
 )
 
 var redisClient *redis.Client
