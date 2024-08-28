@@ -3,6 +3,7 @@ package cache
 import (
 	"encoding/json"
 	"errors"
+	"{{.ProjectName}}/pkg/singleflight"
 )
 
 type (
@@ -14,14 +15,14 @@ type (
 
 	cacheClient struct {
 		rds     Redis
-		barrier SingleFlight // 单次查询数据库，缓存击穿
+		barrier singleflight.SingleFlight // 单次查询数据库，防止缓存击穿
 	}
 )
 
 func newCacheClient() *cacheClient {
 	return &cacheClient{
 		rds:     NewRedis(),
-		barrier: NewSingleFlight(),
+		barrier: singleflight.NewSingleFlight(),
 	}
 }
 

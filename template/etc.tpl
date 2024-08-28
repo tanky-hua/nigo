@@ -1,5 +1,5 @@
 service:
-  name: {{.name}}
+  name: {{.ProjectName}}
   port: 80
   mode: debug
   token:

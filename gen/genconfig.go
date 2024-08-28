@@ -11,7 +11,7 @@ func genConfig(dir string, projectName string) error {
 
 	err := genFile(&Config{
 		dir:             dir,
-		tagetDir:        "/config/",
+		targetDir:       "/config/",
 		fileName:        "config.yaml",
 		templateName:    "etcTemplate",
 		templateFile:    etcTemplateFile,
@@ -25,7 +25,7 @@ func genConfig(dir string, projectName string) error {
 	}
 	return genFile(&Config{
 		dir:             dir,
-		tagetDir:        "/config/",
+		targetDir:       "/config/",
 		fileName:        "config.go",
 		templateName:    "configTemplate",
 		templateFile:    configTemplateFile,

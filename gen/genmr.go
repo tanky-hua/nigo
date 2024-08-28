@@ -11,7 +11,7 @@ var (
 func genMR(dir, projectName string) error {
 	err := genFile(&Config{
 		dir:             dir,
-		tagetDir:        "/mr/",
+		targetDir:       "/pkg/mr/",
 		fileName:        "errorx.go",
 		templateName:    "mrErrorTemplate",
 		templateFile:    "mr-error.tpl",
@@ -23,7 +23,7 @@ func genMR(dir, projectName string) error {
 	}
 	err = genFile(&Config{
 		dir:             dir,
-		tagetDir:        "/mr/",
+		targetDir:       "/pkg/mr/",
 		fileName:        "lang.go",
 		templateName:    "mrLangTemplate",
 		templateFile:    "mr-lang.tpl",
@@ -35,7 +35,7 @@ func genMR(dir, projectName string) error {
 	}
 	err = genFile(&Config{
 		dir:             dir,
-		tagetDir:        "/mr/",
+		targetDir:       "/pkg/mr/",
 		fileName:        "mapreduce.go",
 		templateName:    "mrMapreduceTemplate",
 		templateFile:    "mr-mapreduce.tpl",

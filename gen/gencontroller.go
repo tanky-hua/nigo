@@ -13,7 +13,7 @@ func genController(dir, projectName string) error {
 
 	err := genFile(&Config{
 		dir:             dir,
-		tagetDir:        "/api/v1/",
+		targetDir:       "/api/v1/",
 		fileName:        "user.go",
 		templateName:    "controllerUserTemplate",
 		templateFile:    "controller-user-test.tpl",
@@ -28,7 +28,7 @@ func genController(dir, projectName string) error {
 
 	return genFile(&Config{
 		dir:             dir,
-		tagetDir:        "/api/v1/",
+		targetDir:       "/api/v1/",
 		fileName:        "base.go",
 		templateName:    "controllerTemplate",
 		templateFile:    controllerTemplateFile,

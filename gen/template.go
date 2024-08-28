@@ -5,5 +5,5 @@ const (
 	controllerTemplateFile = "controller.tpl"
 	etcTemplateFile        = "etc.tpl"
 	modelTemplateFile      = "model.tpl"
-	utilsCodeTemplateFile  = "utils-code.tpl"
+	pkgCodeTemplateFile    = "pkg-code.tpl"
 )

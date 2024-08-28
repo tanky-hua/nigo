@@ -9,7 +9,7 @@ var (
 func genService(dir, projectName string) error {
 	err := genFile(&Config{
 		dir:             dir,
-		tagetDir:        "/service/",
+		targetDir:       "/service/",
 		fileName:        "user.go",
 		templateName:    "serviceUserTemplate",
 		templateFile:    "service-user-test.tpl",

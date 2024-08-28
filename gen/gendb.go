@@ -11,7 +11,7 @@ func genDB(dir, projectName string) error {
 
 	err := genFile(&Config{
 		dir:             dir,
-		tagetDir:        "/repository/db/",
+		targetDir:       "/repository/db/",
 		fileName:        "user.go",
 		templateName:    "dbTestTemplate",
 		templateFile:    "db-user-test.tpl",
@@ -26,7 +26,7 @@ func genDB(dir, projectName string) error {
 
 	return genFile(&Config{
 		dir:             dir,
-		tagetDir:        "/repository/db/",
+		targetDir:       "/repository/db/",
 		fileName:        "init.go",
 		templateName:    "dbInitTemplate",
 		templateFile:    "db-init.tpl",

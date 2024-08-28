@@ -4,7 +4,7 @@ import(
     	"github.com/gin-gonic/gin"
     	"net/http"
     	"{{.ProjectName}}/model"
-    	"{{.ProjectName}}/utils/code"
+    	"{{.ProjectName}}/pkg/code"
 )
 type baseController struct {
 }

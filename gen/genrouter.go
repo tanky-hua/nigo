@@ -9,7 +9,7 @@ var (
 func genRouter(dir, projectName string) error {
 	return genFile(&Config{
 		dir:             dir,
-		tagetDir:        "/routers/",
+		targetDir:       "/routers/",
 		fileName:        "router.go",
 		templateName:    "routerTemplate",
 		templateFile:    "router.tpl",

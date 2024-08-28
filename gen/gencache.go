@@ -15,24 +15,28 @@ var (
 func genCache(dir string, projectName string) error {
 	err := genFile(&Config{
 		dir:             dir,
-		tagetDir:        "/repository/cache/",
+		targetDir:       "/repository/cache/",
 		fileName:        "cache.go",
 		templateName:    "cacheTemplate",
 		templateFile:    "cache.tpl",
 		builtinTemplate: string(cacheTemplate),
-		data:            nil,
+		data: map[string]string{
+			"ProjectName": projectName,
+		},
 	})
 	if err != nil {
 		return err
 	}
 	err = genFile(&Config{
 		dir:             dir,
-		tagetDir:        "/repository/cache/",
+		targetDir:       "/repository/cache/",
 		fileName:        "redis.go",
 		templateName:    "redisTemplate",
 		templateFile:    "redis.tpl",
 		builtinTemplate: string(redisTemplate),
-		data:            nil,
+		data: map[string]string{
+			"ProjectName": projectName,
+		},
 	})
 	if err != nil {
 		return err
@@ -40,20 +44,7 @@ func genCache(dir string, projectName string) error {
 
 	err = genFile(&Config{
 		dir:             dir,
-		tagetDir:        "/repository/cache/",
-		fileName:        "singleflight.go",
-		templateName:    "singleFlightTemplate",
-		templateFile:    "singleflight.tpl",
-		builtinTemplate: string(singleFlightTemplate),
-		data:            nil,
-	})
-	if err != nil {
-		return err
-	}
-
-	err = genFile(&Config{
-		dir:             dir,
-		tagetDir:        "/repository/cache/",
+		targetDir:       "/repository/cache/",
 		fileName:        "user.go",
 		templateName:    "userCacheTemplate",
 		templateFile:    "cache-user-test.tpl",
@@ -68,7 +59,7 @@ func genCache(dir string, projectName string) error {
 
 	err = genFile(&Config{
 		dir:             dir,
-		tagetDir:        "/repository/cache/",
+		targetDir:       "/repository/cache/",
 		fileName:        "init.go",
 		templateName:    "cacheInitTemplate",
 		templateFile:    "cache-init.tpl",

@@ -11,7 +11,7 @@ func genModel(dir, projectName string) error {
 
 	err := genFile(&Config{
 		dir:             dir,
-		tagetDir:        "/model/",
+		targetDir:       "/model/",
 		fileName:        "user.go",
 		templateName:    "modelTestTemplate",
 		templateFile:    "model-user-test.tpl",
@@ -26,7 +26,7 @@ func genModel(dir, projectName string) error {
 
 	return genFile(&Config{
 		dir:             dir,
-		tagetDir:        "/model/",
+		targetDir:       "/model/",
 		fileName:        "response.go",
 		templateName:    "modelTemplate",
 		templateFile:    modelTemplateFile,

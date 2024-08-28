@@ -2,7 +2,7 @@ package api
 
 import (
     "{{.ProjectName}}/service"
-    "{{.ProjectName}}/utils/code"
+    "{{.ProjectName}}/pkg/code"
     "github.com/gin-gonic/gin"
 )
 

@@ -9,7 +9,7 @@ var (
 func genMain(dir, projectName string) error {
 	return genFile(&Config{
 		dir:             dir,
-		tagetDir:        "",
+		targetDir:       "",
 		fileName:        "main.go",
 		templateName:    "mainTemplate",
 		templateFile:    "main.tpl",

@@ -11,7 +11,7 @@ import (
 
 type Config struct {
 	dir             string
-	tagetDir        string
+	targetDir       string
 	fileName        string
 	templateName    string
 	templateFile    string
@@ -31,7 +31,7 @@ func GenProject(dir string, projectName string) error {
 		return err
 	}
 
-	err = genUtilCode(dir, projectName)
+	err = genPkg(dir, projectName)
 	if err != nil {
 		return err
 	}
@@ -65,6 +65,11 @@ func GenProject(dir string, projectName string) error {
 		return err
 	}
 
+	err = genMiddleware(dir, projectName)
+	if err != nil {
+		return err
+	}
+
 	err = genMain(dir, projectName)
 	if err != nil {
 		return err
@@ -75,18 +80,13 @@ func GenProject(dir string, projectName string) error {
 
 func genFile(c *Config) error {
 
-	//content, err := os.ReadFile("./template/" + c.templateFile)
-	//if err != nil {
-	//	return err
-	//}
-	fpath := path.Join(c.dir, c.tagetDir, c.fileName)
-	fmt.Println("path:", fpath)
+	fpath := path.Join(c.dir, c.targetDir, c.fileName)
 	_, err := os.Stat(fpath)
 	if !os.IsNotExist(err) {
 		return fmt.Errorf("%s already exist", fpath)
 	}
 
-	err = os.MkdirAll(path.Join(c.dir, c.tagetDir), os.ModePerm)
+	err = os.MkdirAll(path.Join(c.dir, c.targetDir), os.ModePerm)
 	if err != nil {
 		return err
 	}
@@ -103,7 +103,11 @@ func genFile(c *Config) error {
 
 	code := formatCode(buffer.String())
 	_, err = fp.WriteString(code)
-	return err
+	if err != nil {
+		return err
+	}
+	fmt.Println(fpath, " 创建成功！")
+	return nil
 }
 
 func formatCode(code string) string {

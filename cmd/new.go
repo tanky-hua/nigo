@@ -13,7 +13,7 @@ var (
 		Long:  `生成新项目目录结构及代码，包含缓存、数据库查询，中间件等功能，具体使用请看user相关实例代码`,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			fmt.Println("args: ", args, VarDir)
-			projectName := ""
+			projectName := "project"
 			if len(args) > 0 {
 				projectName = args[0]
 			}
