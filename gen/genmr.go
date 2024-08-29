@@ -1,6 +1,6 @@
 package gen
 
-import "goctl/template"
+import "nigo/template"
 
 var (
 	MrErrorTemplate, _     = template.TemplateFs.ReadFile("mr-error.tpl")

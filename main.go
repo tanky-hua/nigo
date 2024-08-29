@@ -1,7 +1,7 @@
 package main
 
 import (
-	"goctl/cmd"
+	"nigo/cmd"
 )
 
 func main() {

@@ -1,7 +1,7 @@
 package gen
 
 import (
-	"goctl/template"
+	"nigo/template"
 )
 
 var (

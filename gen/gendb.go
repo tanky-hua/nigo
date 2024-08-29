@@ -1,6 +1,6 @@
 package gen
 
-import "goctl/template"
+import "nigo/template"
 
 var (
 	dbInitTemplate, _     = template.TemplateFs.ReadFile("db-init.tpl")

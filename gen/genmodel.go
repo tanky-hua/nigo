@@ -1,6 +1,6 @@
 package gen
 
-import "goctl/template"
+import "nigo/template"
 
 var (
 	modelTemplate, _         = template.TemplateFs.ReadFile("model.tpl")

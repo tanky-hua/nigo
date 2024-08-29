@@ -1,6 +1,6 @@
 package gen
 
-import "goctl/template"
+import "nigo/template"
 
 var (
 	ginTemplate, _   = template.TemplateFs.ReadFile("middleware-gin.tpl")

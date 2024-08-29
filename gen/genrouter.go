@@ -1,6 +1,6 @@
 package gen
 
-import "goctl/template"
+import "nigo/template"
 
 var (
 	routerTemplate, _ = template.TemplateFs.ReadFile("router.tpl")
