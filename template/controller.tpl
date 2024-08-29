@@ -3,6 +3,7 @@ package api
 import(
     	"github.com/gin-gonic/gin"
     	"net/http"
+    	"go.uber.org/zap"
     	"{{.ProjectName}}/model"
     	e "{{.ProjectName}}/pkg/code"
 )
