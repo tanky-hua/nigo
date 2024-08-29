@@ -1,4 +1,4 @@
-module nigo
+module github.com/tanky-hua/nigo
 
 go 1.22.1
 

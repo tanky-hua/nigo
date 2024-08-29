@@ -1,6 +1,6 @@
 package gen
 
-import "nigo/template"
+import "github.com/tanky-hua/nigo/template"
 
 var (
 	dbInitTemplate, _     = template.TemplateFs.ReadFile("db-init.tpl")

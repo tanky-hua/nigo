@@ -1,7 +1,7 @@
 package main
 
 import (
-	"nigo/cmd"
+	"github.com/tanky-hua/nigo/cmd"
 )
 
 func main() {

@@ -1,6 +1,6 @@
 package gen
 
-import "nigo/template"
+import "github.com/tanky-hua/nigo/template"
 
 var (
 	routerTemplate, _ = template.TemplateFs.ReadFile("router.tpl")

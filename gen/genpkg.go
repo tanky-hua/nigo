@@ -1,6 +1,6 @@
 package gen
 
-import "nigo/template"
+import "github.com/tanky-hua/nigo/template"
 
 var (
 	pkgCodeTemplate, _ = template.TemplateFs.ReadFile("pkg-code.tpl")

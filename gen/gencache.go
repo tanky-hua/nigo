@@ -1,7 +1,7 @@
 package gen
 
 import (
-	"nigo/template"
+	"github.com/tanky-hua/nigo/template"
 )
 
 var (
