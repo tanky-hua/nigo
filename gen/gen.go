@@ -21,59 +21,19 @@ type Config struct {
 
 func GenProject(dir string, projectName string) error {
 	dir = fmt.Sprintf("%s/%s", dir, projectName)
-	err := genConfig(dir, projectName)
-	if err != nil {
-		return err
-	}
 
-	err = genModel(dir, projectName)
-	if err != nil {
-		return err
-	}
+	MustError(genConfig(dir, projectName))
+	MustError(genModel(dir, projectName))
+	MustError(genPkg(dir, projectName))
+	MustError(genController(dir, projectName))
+	MustError(genCache(dir, projectName))
+	MustError(genDB(dir, projectName))
+	MustError(genService(dir, projectName))
+	MustError(genMR(dir, projectName))
+	MustError(genRouter(dir, projectName))
+	MustError(genMiddleware(dir, projectName))
+	MustError(genMain(dir, projectName))
 
-	err = genPkg(dir, projectName)
-	if err != nil {
-		return err
-	}
-	err = genController(dir, projectName)
-	if err != nil {
-		return err
-	}
-
-	err = genCache(dir, projectName)
-	if err != nil {
-		return err
-	}
-
-	err = genDB(dir, projectName)
-	if err != nil {
-		return err
-	}
-
-	err = genService(dir, projectName)
-	if err != nil {
-		return err
-	}
-
-	err = genMR(dir, projectName)
-	if err != nil {
-		return err
-	}
-
-	err = genRouter(dir, projectName)
-	if err != nil {
-		return err
-	}
-
-	err = genMiddleware(dir, projectName)
-	if err != nil {
-		return err
-	}
-
-	err = genMain(dir, projectName)
-	if err != nil {
-		return err
-	}
 	return nil
 
 }
@@ -106,7 +66,8 @@ func genFile(c *Config) error {
 	if err != nil {
 		return err
 	}
-	fmt.Println(fpath, " 创建成功！")
+
+	fmt.Println(c.targetDir+c.fileName, " 创建成功！")
 	return nil
 }
 
@@ -117,4 +78,12 @@ func formatCode(code string) string {
 	}
 
 	return string(ret)
+}
+
+func MustError(err error) {
+	if err != nil {
+		fmt.Println("初始化文件失败：", err)
+		fmt.Println("请确保目录文件不存在或者为空目录！")
+		os.Exit(1)
+	}
 }
