@@ -11,7 +11,6 @@ import (
 const(
 	AccessTokenHeader          = "access_token"
 	RefreshTokenHeader         = "refresh_token"
-	InstallIDHeader            = "install_id"
 )
 // AuthTokenMiddleware token验证中间件
 func AuthTokenMiddleware() gin.HandlerFunc {
@@ -47,22 +46,12 @@ func AuthVisitorMiddleware() gin.HandlerFunc {
 
 func checkAuth(ctx *gin.Context, isVisitorCheck bool) e.StatusCode {
 	var code = e.SUCCESS
-	installID := ""
+
 	accessToken := ctx.GetHeader(AccessTokenHeader)
 
 	if accessToken == "" {
-		if isVisitorCheck {
-			// 游客方式
-			zap.S().Debug("access_token:", accessToken)
-			installID = ctx.GetHeader(InstallIDHeader)
-			zap.S().Debug("installID:", installID)
-			if installID == "" || installID == "0" {
-				return e.ErrorVisitorRegisterFail
-			}
-		} else {
-			// 登陆接口，未登陆状态
-			return e.ErrorAuthUnLogin
-		}
+		// 登录接口，未登陆状态
+		return e.ErrorAuthUnLogin
 	} else {
 		// 登陆状态（这里需要验证token，exp：获取章节信息需要用户id，但是不走登陆验证）
 		claims, err := jwt.ParseToken(accessToken)
@@ -72,7 +61,6 @@ func checkAuth(ctx *gin.Context, isVisitorCheck bool) e.StatusCode {
 		}
 		if claims != nil {
 			zap.S().Debug("installID:", claims.InstallID)
-			installID = claims.InstallID
 		}
 
 		// 是否在黑名单

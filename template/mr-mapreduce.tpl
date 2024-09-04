@@ -357,9 +357,6 @@ func newGuardedWriter(ctx context.Context, channel chan<- interface{},
 }
 
 func (gw guardedWriter) Write(v interface{}) {
-	if v == nil {
-		return
-	}
 	select {
 	case <-gw.ctx.Done():
 		return
