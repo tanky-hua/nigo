@@ -31,7 +31,7 @@ func (c *cacheClient) doGetCache(key string, v any) error {
 }
 
 // doTake 获取缓存，不存在则查询db，并设置缓存
-func (c *cacheClient) doTake(v any, key string, getCache func(v any) error, query func(v any) error, cacheVal func(v any) error) error {
+func (c *cacheClient) doTake(v any, key string, isSetNotFound bool, getCache func(v any) error, queryDB func(v any) error, setCache func(v any) error) error {
 	val, fresh, err := c.barrier.DoEx(key, func() (any, error) {
 		if err := getCache(v); err != nil {
 			if errors.Is(err, ErrorNullValue) {
@@ -41,10 +41,12 @@ func (c *cacheClient) doTake(v any, key string, getCache func(v any) error, quer
 			}
 
 			// 缓存不存在，查询db
-			if err = query(v); errors.Is(err, ErrorNotFound) {
-				// 未查到数据，设置空值
-				if err = c.rds.SetNotFound(key); err != nil {
-					return nil, err
+			if err = queryDB(v); errors.Is(err, ErrorNotFound) {
+				if isSetNotFound {
+					// 未查到数据，设置空值
+					if err = c.rds.SetNotFound(key); err != nil {
+						return nil, err
+					}
 				}
 				return nil, ErrorNotFound
 			} else if err != nil {
@@ -52,15 +54,10 @@ func (c *cacheClient) doTake(v any, key string, getCache func(v any) error, quer
 			}
 
 			// 查到数据，存储到缓存redis
-			if err = cacheVal(v); err != nil {
+			if err = setCache(v); err != nil {
 				return nil, err
 			}
 
-			d, _ := json.Marshal(v)
-			err = json.Unmarshal(d, v)
-			if err != nil {
-				return nil, err
-			}
 		}
 
 		return json.Marshal(v)
@@ -74,4 +71,12 @@ func (c *cacheClient) doTake(v any, key string, getCache func(v any) error, quer
 	}
 
 	return json.Unmarshal(val.([]byte), v)
+}
+
+func parseToJson(source any, v any) error {
+	d, err := json.Marshal(source)
+	if err != nil {
+		return err
+	}
+	return json.Unmarshal(d, v)
 }

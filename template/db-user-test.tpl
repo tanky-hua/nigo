@@ -27,3 +27,15 @@ func (u *UserDao) GetByID(userID uint) ( *model.User, error) {
 	}
 	return &user,nil
 }
+
+func (u *UserDao) List(req model.UserListRequest) ([]*model.User, error) {
+	var users []*model.User
+	err := u.db.Where("status=?", model.StatusUsable).
+		Offset(int((req.Page - 1) * req.PageSize)).
+		Limit(int(req.PageSize)).
+		Find(&users).Error
+	if err != nil {
+		return nil, err
+	}
+	return users, nil
+}

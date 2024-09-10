@@ -12,3 +12,8 @@ const (
 	StatusUsable  Status = 1 // 1-启用
 	StatusDisable Status = 2 // 2-禁用
 )
+
+type UserListRequest struct {
+	Page     uint32 `form:"page"`
+	PageSize uint32 `form:"page_size"`
+}
